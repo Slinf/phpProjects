@@ -7,17 +7,17 @@ class User
     protected $prenom;
     protected $age;
     protected $ville;
-    protected $cdp;
+    protected $cp;
     protected $rue;
 
-    public function __construct($id, $nom, $prenom, $age, $ville, $cdp, $rue)
+    public function __construct($id, $nom, $prenom, $age, $ville, $cp, $rue)
     {
         $this->id = $id;
         $this->prenom = $prenom;
         $this->nom = $nom;
         $this->age = $age;
         $this->ville=$ville;
-        $this->cdp=$cdp;
+        $this->cp=$cp;
         $this->rue=$rue;
     }
     public function setId($id)
@@ -68,9 +68,9 @@ class User
     {
         return $this->ville;
     }
-    public function getCdp()
+    public function getCp()
     {
-        return $this->cdp;
+        return $this->cp;
     }
     public function getRue()
     {
@@ -84,7 +84,7 @@ class User
         $array['prenom'] = $this->prenom;
         $array['age'] = $this->age;
         $array['ville'] = $this->ville;
-        $array['cdp'] = $this->cdp;
+        $array['cp'] = $this->cp;
         $array['rue'] = $this->rue;
         return $array;
     }

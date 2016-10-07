@@ -36,7 +36,7 @@ class UserRepository
        $statement = $queryBuilder->execute();
        $usersData = $statement->fetchAll();
        foreach ($usersData as $userData) {
-           $userEntityList[$userData['id']] = new User($userData['id'], $userData['nom'], $userData['prenom'], $userData['age'], $userData['ville'], $userData['cdp'], $userData['rue'] );
+           $userEntityList[$userData['id']] = new User($userData['id'], $userData['nom'], $userData['prenom'], $userData['age'], $userData['ville'], $userData['cp'], $userData['rue'] );
        }
        return $userEntityList;
    }
@@ -58,7 +58,7 @@ class UserRepository
            ->setParameter(0, $id);
        $statement = $queryBuilder->execute();
        $userData = $statement->fetchAll();
-       return new User($userData[0]['id'], $userData[0]['nom'], $userData[0]['prenom'], $userData[0]['age'], $userData[0]['ville'], $userData[0]['cdp'], $userData[0]['rue'] );
+       return new User($userData[0]['id'], $userData[0]['nom'], $userData[0]['prenom'], $userData[0]['age'], $userData[0]['ville'], $userData[0]['cp'], $userData[0]['rue'] );
    }
     public function delete($id)
     {
@@ -86,6 +86,28 @@ class UserRepository
             ->set('prenom', ':prenom')
             ->setParameter(':prenom', $parameters['prenom']);
         }
+         if ($parameters['age']) {
+            $queryBuilder
+              ->set('age', ':age')
+              ->setParameter(':age', $parameters['age']);
+        }
+         if ($parameters['ville']) {
+            $queryBuilder
+              ->set('ville', ':ville')
+              ->setParameter(':ville', $parameters['ville']);
+        }
+         if ($parameters['rue']) {
+            $queryBuilder
+              ->set('rue', ':rue')
+              ->setParameter(':rue', $parameters['rue']);
+        }
+          
+         if ($parameters['cp']) {
+            $queryBuilder
+              ->set('cp', ':cp')
+              ->setParameter(':cp', $parameters['cp']);
+        }
+
         $statement = $queryBuilder->execute();
     }
     public function insert($parameters)
@@ -97,10 +119,18 @@ class UserRepository
               array(
                 'nom' => ':nom',
                 'prenom' => ':prenom',
+                'age' => ':age',
+                'ville' => ':ville',
+                'rue' => ':rue',
+                'cp' => ':cp',
               )
           )
           ->setParameter(':nom', $parameters['nom'])
-          ->setParameter(':prenom', $parameters['prenom']);
+          ->setParameter(':prenom', $parameters['prenom'])
+          ->setParameter(':age', $parameters['age'])
+          ->setParameter(':ville', $parameters['ville'])
+          ->setParameter(':rue', $parameters['rue'])
+          ->setParameter(':cp', $parameters['cp']);
         $statement = $queryBuilder->execute();
     }
 }
